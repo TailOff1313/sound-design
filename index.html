@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  
   <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
-  
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Иван Молчанов — Саунд-дизайн</title>
@@ -33,6 +31,11 @@
       overflow-x: hidden;
     }
 
+    /* Плавная прокрутка всей страницы */
+    html {
+      scroll-behavior: smooth;
+    }
+
     .content-wrapper { position: relative; z-index: 2; }
 
     header {
@@ -42,8 +45,39 @@
       -webkit-backdrop-filter: blur(10px);
     }
 
+    /* Навигация */
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 1rem auto 3rem;
+      max-width: 900px;
+    }
+    .nav-btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-1px);
+    }
+    .nav-btn.active {
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      border-color: var(--accent);
+    }
+
     .sound-wave-logo {
-      width: 90px; height: 90px; margin: 0 auto 2,5rem;
+      width: 90px; height: 90px; margin: 0 auto 2.5rem;
       fill: none; stroke: #ffffff; stroke-width: 6;
       stroke-linecap: round; stroke-linejoin: round;
       filter: drop-shadow(0 10px 20px rgba(255, 160, 28, 0.738));
@@ -95,23 +129,16 @@
       transition: color 0.2s;
     }
     .contacts-row a:hover { color: #fff; text-decoration: underline; }
-.simple-divider {
-  text-align: center;     /* Центрирует сам текст */
-  position: relative;
-  padding: 15px 0;
-  color: #88aacc;
-  font-size: 13px;
-  text-transform: uppercase;
-}
 
+    .simple-divider {
+      text-align: center;
+      position: relative;
+      padding: 15px 0;
+      color: #88aacc;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
 
-.simple-divider::before {
-  left: 0;
-}
-
-.simple-divider::after {
-  right: 0;
-}
     .portfolio {
       max-width: 1280px;
       margin: 0 auto;
@@ -142,24 +169,27 @@
       box-shadow: 0 30px 60px rgba(255, 151, 4, 0.301);
     }
 
-.case-spacer {
-  grid-column: 1 / -1;       /* на всю ширину сетки (если у тебя 3 колонки) */
-  display: flex;
-  align-items: center;
-  justify-content: center;   /* центрирует всё по горизонтали */
-  margin: 40px 0;            /* отступ сверху/снизу */
-  color: #88aacc;            /* цвет текста под твой дизайн */
-  font-size: 18px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
+    .case-spacer {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 40px 0;
+      color: #88aacc;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
 
-.spacer-line {
-  flex: 1;                   /* линии растягиваются по краям */
-  height: 1px;
-  background-color: #1b5a95; /* твой фирменный синий */
-  margin: 0 15px;            /* расстояние от текста до линии */
-}
+      /* Отступ сверху, чтобы шапка не перекрывала заголовок при переходе */
+      scroll-margin-top: 100px;
+    }
+
+    .spacer-line {
+      flex: 1;
+      height: 1px;
+      background-color: #1b5a95;
+      margin: 0 15px;
+    }
 
     .case h3 {
       margin: 0 0 1.2rem;
@@ -243,21 +273,24 @@
       <svg class="sound-wave-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <polyline points="10,50 25,30 40,60 55,25 70,55 85,40" />
       </svg>
-      <h1>Иван Молчанов<h1>"TailOff Music"
-      </h1>
+      <h1>Иван Молчанов<br>"TailOff Music"</h1>
       <p class="subtitle">Саунд‑дизайн, озвучка и звукорежиссура для видеоконтента</p>
-      
+
+      <!-- НАВИГАЦИЯ -->
+      <nav class="nav-bar">
+        <a href="#sec-voice-sound" class="nav-btn">Озвучка + саунд-дизайн видео</a>
+        <a href="#sec-redesign" class="nav-btn">Редизайн звука</a>
+        <a href="#sec-instruments" class="nav-btn">Озвучка музыкальных инструментов</a>
+        <a href="#sec-video-sd" class="nav-btn">Саунд-дизайн видео контента</a>
+      </nav>
 
       <div class="contacts-row">
         Моя почта: 
         <a href="https://e.mail.ru/compose/">iiiliii@inbox.ru</a> | 
         VK: <a href="https://vk.com/tailoff" target="_blank">ВКонтакте</a>
-      
-     <div class="case-spacer">
-  <span class="spacer-line"></span>
-  <span class="spacer-label">Озвучка + саунд-дизайн видео</span>
-  <span class="spacer-line"></span>
-</div>
+      </div>
+    </header>
+
     
     <section class="portfolio">
       <!-- КЕЙС 1 -->
