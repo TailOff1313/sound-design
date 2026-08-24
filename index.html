@@ -21,6 +21,11 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ГЛАВНОЕ: плавная прокрутка по якорям */
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       background: linear-gradient(135deg, var(--grad-start), var(--grad-mid), var(--grad-end));
@@ -31,11 +36,6 @@
       overflow-x: hidden;
     }
 
-    /* Плавная прокрутка всей страницы */
-    html {
-      scroll-behavior: smooth;
-    }
-
     .content-wrapper { position: relative; z-index: 2; }
 
     header {
@@ -43,37 +43,6 @@
       text-align: center;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-    }
-
-    /* Навигация */
-    .nav-bar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin: 1rem auto 3rem;
-      max-width: 900px;
-    }
-    .nav-btn {
-      display: inline-block;
-      padding: 8px 16px;
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-    .nav-btn:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-1px);
-    }
-    .nav-btn.active {
-      background: var(--accent);
-      color: #000;
-      font-weight: 700;
-      border-color: var(--accent);
     }
 
     .sound-wave-logo {
@@ -130,13 +99,22 @@
     }
     .contacts-row a:hover { color: #fff; text-decoration: underline; }
 
-    .simple-divider {
-      text-align: center;
-      position: relative;
-      padding: 15px 0;
-      color: #88aacc;
-      font-size: 13px;
-      text-transform: uppercase;
+    /* Кнопка быстрой навигации */
+    .quick-nav-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: var(--accent);
+      color: #000;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(248, 146, 2, 0.3);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .quick-nav-btn:hover {
+      background-color: #e98800;
+      transform: translateY(-4px);
     }
 
     .portfolio {
@@ -219,45 +197,6 @@
       flex-grow: 1;
     }
 
-    .video-trigger {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%; /* 16:9 */
-      background-color: #000;
-      background-size: cover;
-      background-position: center;
-      border-radius: 14px;
-      cursor: pointer;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-      transition: all 0.3s ease;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-    .video-trigger:hover {
-      transform: scale(1.02);
-      border-color: rgba(255, 160, 28, 0.973);
-    }
-
-    .play-icon {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 50px; height: 50px;
-      background: rgba(10, 93, 189, 0.6);
-      backdrop-filter: blur(8px);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: rgb(226, 212, 212);
-      font-size: 24px;
-      z-index: 2;
-      transition: all 0.3s ease;
-    }
-    .play-icon:hover {
-      background: var(--accent);
-      transform: translate(-50%, -50%) scale(1.1);
-      box-shadow: 0 0 20px rgba(255, 159, 28, 0.5);
-    }
-
     footer {
       text-align: center;
       padding: 4rem 1rem 3rem;
@@ -276,21 +215,28 @@
       <h1>Иван Молчанов<br>"TailOff Music"</h1>
       <p class="subtitle">Саунд‑дизайн, озвучка и звукорежиссура для видеоконтента</p>
 
-      <!-- НАВИГАЦИЯ -->
-      <nav class="nav-bar">
-        <a href="#sec-voice-sound" class="nav-btn">Озвучка + саунд-дизайн видео</a>
-        <a href="#sec-redesign" class="nav-btn">Редизайн звука</a>
-        <a href="#sec-instruments" class="nav-btn">Озвучка музыкальных инструментов</a>
-        <a href="#sec-video-sd" class="nav-btn">Саунд-дизайн видео контента</a>
-      </nav>
-
       <div class="contacts-row">
         Моя почта: 
         <a href="https://e.mail.ru/compose/">iiiliii@inbox.ru</a> | 
         VK: <a href="https://vk.com/tailoff" target="_blank">ВКонтакте</a>
       </div>
+
+      <!-- Кнопка быстрой навигации -->
+       <a href="#sec-voice" class="quick-nav-btn">Озвучка + Саунд-дизайн видео</a>
+      <a href="#sec-redesign" class="quick-nav-btn">Редизайн звука</a>
+      <!-- Кнопка быстрой навигации -->
+      <a href="#sec-instruments" class="quick-nav-btn">Озвучка музыкальных инструментов</a>
+      <a href="#sec-video" class="quick-nav-btn">Саунд-дизайн видео контента</a>
     </header>
 
+</article>
+
+      <!-- РАЗДЕЛИТЕЛЬ: Редизайн звука (с id для навигации) -->
+      <div id="sec-voice" class="case-spacer">
+        <span class="spacer-line"></span>
+        <span class="spacer-label">Озвучка + Саунд-дизайн видео</span>
+        <span class="spacer-line"></span>
+      </div>
     
     <section class="portfolio">
       <!-- КЕЙС 1 -->
@@ -298,34 +244,35 @@
         <h3>Бизнес-ролик: мультяшная анимация и озвучка</h3>
         <p>Задача: озвучить промо-ролик про стартап с мультяшной анимацией. Нужно было сделать голос диктора уверенным, но дружелюбным, а эффекты — «чистыми» и мультяшными. Использовал: запись в студии, обработку в Izotope, подбор эффектов из библиотеки Cartoon.</p>
         
-        <div style="position: relative; padding-top: 56.25%; width: 100%"><iframe src="https://kinescope.io/embed/iDyBAQF9szouWmqUxbh2Sr" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" frameborder="0" allowfullscreen style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;"></iframe></div>
-        
-        <!-- КОНЕЦ ВСТАВКИ -->
-        </a>
+        <div style="position: relative; padding-top: 56.25%; width: 100%">
+          <iframe src="https://kinescope.io/embed/iDyBAQF9szouWmqUxbh2Sr" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" frameborder="0" allowfullscreen style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;"></iframe>
+        </div>
       </article>
 
       <!-- КЕЙС 2 -->
       <article class="case">
         <h3>Озвучка: роботизированные технологии</h3>
         <p>Задача: создать звуковую палитру для ролика про роботов и автоматизацию. Нужно было передать технологичность и точность. Использовал: озвучка ИИ с пресетом "Narrative Male" синтез звуков в Serum, обработку гранулярным синтезатором, добавление цифровых шумов и бипов.</p>
-        <div style="position: relative; padding-top: 56.25%; width: 100%"><iframe src="https://kinescope.io/embed/a5ytSzPC4WUFRjpWekW9pt" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" frameborder="0" allowfullscreen style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;"></iframe></div>
-        </a>
+        <div style="position: relative; padding-top: 56.25%; width: 100%">
+          <iframe src="https://kinescope.io/embed/a5ytSzPC4WUFRjpWekW9pt" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" frameborder="0" allowfullscreen style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;"></iframe>
+        </div>
       </article>
 
       <!-- КЕЙС 3 -->
       <article class="case">
         <h3>Саунд-дизайн: бег девушки на тренажёре</h3>
         <p>Задача: собрать сцену бега девушки на беговой дорожке под мотивирующую музыку и дикторскую озвучку. Нужно было синхронизировать шаги картинкой, сделать голос диктора чистым и выделить его на фоне музыки. Использовал: автоматизацию громкости шагов, эквализацию голоса, компрессию для плотного звучания.</p>
-        <div style="position: relative; padding-top: 56.25%; width: 100%"><iframe src="https://kinescope.io/embed/ed9A5Es1YVEXjmzvJid66M" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" frameborder="0" allowfullscreen style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;"></iframe></div>
-        </a>
+        <div style="position: relative; padding-top: 56.25%; width: 100%">
+          <iframe src="https://kinescope.io/embed/ed9A5Es1YVEXjmzvJid66M" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" frameborder="0" allowfullscreen style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;"></iframe>
+        </div>
       </article>
 
-
-<div class="case-spacer">
-  <span class="spacer-line"></span>
-  <span class="spacer-label">Редизайн звука</span>
-  <span class="spacer-line"></span>
-</div>
+      <!-- РАЗДЕЛИТЕЛЬ: Редизайн звука (с id для навигации) -->
+      <div id="sec-redesign" class="case-spacer">
+        <span class="spacer-line"></span>
+        <span class="spacer-label">Редизайн звука</span>
+        <span class="spacer-line"></span>
+      </div>
 
       
 
@@ -345,11 +292,12 @@
         </a>
       </article>
 
-<div class="case-spacer">
-  <span class="spacer-line"></span>
-  <span class="spacer-label">Озвучка музыкальных инструментов</span>
-  <span class="spacer-line"></span>
-</div>
+      <div id="sec-instruments" class="case-spacer"></div>
+      <div class="case-spacer">
+       <span class="spacer-line"></span>
+       <span class="spacer-label">Озвучка музыкальных инструментов</span>
+       <span class="spacer-line"></span>
+      </div>
 
       <!-- КЕЙС 6 -->
      <article class="case">
@@ -375,6 +323,7 @@
         </a>
       </article>
 
+      <div id="sec-video" class="case-spacer"></div>
 <div class="case-spacer">
   <span class="spacer-line"></span>
   <span class="spacer-label">Саунд-дизайн видео контента</span>
