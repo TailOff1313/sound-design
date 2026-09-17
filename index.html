@@ -545,11 +545,178 @@
     }
 
     /* ============================================================
+       EMAIL MODAL
+       ============================================================ */
+    .email-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+    .email-modal[hidden] { display: none; }
+
+    .email-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 6, 10, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      animation: fadeIn .22s ease;
+    }
+
+    .email-modal__dialog {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      padding: 30px 28px 26px;
+      border: 1px solid var(--border-strong);
+      border-radius: 22px;
+      background:
+        radial-gradient(500px 200px at 100% 0%, rgba(255, 157, 46, 0.14), transparent 70%),
+        linear-gradient(180deg, #141c2b, #0a0f18);
+      box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.95);
+      animation: popIn .28s var(--ease);
+    }
+
+    .email-modal__close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 1.15rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: background .2s, color .2s, transform .2s;
+    }
+    .email-modal__close:hover {
+      background: var(--surface-2);
+      color: var(--text-strong);
+      transform: rotate(90deg);
+    }
+
+    .email-modal__title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-strong);
+      margin-bottom: 4px;
+    }
+
+    .email-modal__address {
+      display: inline-block;
+      margin-bottom: 22px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+
+    .email-modal__options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .email-option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 13px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: background .2s var(--ease), border-color .2s var(--ease),
+                  transform .2s var(--ease);
+    }
+    .email-option:hover {
+      background: var(--surface-2);
+      border-color: rgba(255, 157, 46, 0.4);
+      transform: translateX(3px);
+    }
+
+    .email-option .icon {
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 1rem;
+    }
+    .email-option .icon--mailru { background: rgba(0, 90, 255, 0.18); color: #6ea8ff; }
+    .email-option .icon--gmail  { background: rgba(234, 67, 53, 0.18);  color: #ff7a6e; }
+    .email-option .icon--yandex { background: rgba(255, 45, 45, 0.18);  color: #ff6b6b; }
+    .email-option .icon--copy   { background: rgba(255, 157, 46, 0.18); color: var(--accent); }
+    .email-option .icon--app    { background: rgba(120, 200, 120, 0.16); color: #8fd98f; }
+
+    .email-option .meta { display: flex; flex-direction: column; line-height: 1.25; }
+    .email-option .meta small {
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--muted-2);
+    }
+
+    /* ============================================================
+       TOAST
+       ============================================================ */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 30px;
+      z-index: 300;
+      transform: translate(-50%, 20px);
+      padding: 12px 22px;
+      border: 1px solid rgba(255, 157, 46, 0.35);
+      border-radius: 999px;
+      background: rgba(20, 26, 38, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: var(--text-strong);
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.9);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s var(--ease), transform .3s var(--ease);
+    }
+    .toast.is-visible {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    /* ============================================================
        ANIMATIONS
        ============================================================ */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(12px) scale(.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     /* ============================================================
@@ -571,6 +738,7 @@
       .hero-actions .btn { flex: 1 1 auto; }
       .contact-actions { width: 100%; }
       .contact-actions .btn { flex: 1 1 auto; }
+      .email-modal__dialog { padding: 26px 20px 22px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -604,7 +772,7 @@
     <nav class="header-nav" aria-label="Основная навигация">
       <a href="#works">Работы</a>
       <a href="#contact">Контакты</a>
-      <a class="btn btn-sm btn-primary" href="mailto:iiiliii@inbox.ru">Написать</a>
+      <button class="btn btn-sm btn-primary js-email-btn" type="button">Написать</button>
     </nav>
   </div>
 </header>
@@ -624,7 +792,7 @@
 
       <div class="hero-actions">
         <a class="btn btn-primary" href="#works">Смотреть работы</a>
-        <a class="btn" href="mailto:iiiliii@inbox.ru">Обсудить проект</a>
+        <button class="btn js-email-btn" type="button">Обсудить проект</button>
       </div>
 
       <ul class="stats">
@@ -679,7 +847,7 @@
         <p>Напишите — обсудим задачу, сроки и стоимость.</p>
       </div>
       <div class="contact-actions">
-        <a class="btn btn-primary" href="mailto:iiiliii@inbox.ru">iiiliii@inbox.ru</a>
+        <button class="btn btn-primary js-email-btn" type="button">iiiliii@inbox.ru</button>
         <a class="btn" href="https://vk.com/tailoff" target="_blank" rel="noopener noreferrer">VK @tailoff</a>
       </div>
     </div>
@@ -687,6 +855,68 @@
     <p class="copyright">© 2026 Иван Молчанов · TailOff Music. Все работы защищены.</p>
   </div>
 </footer>
+
+<!-- ================= EMAIL MODAL ================= -->
+<div class="email-modal" id="emailModal" hidden>
+  <div class="email-modal__backdrop" data-close></div>
+  <div class="email-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle">
+    <button class="email-modal__close" type="button" data-close aria-label="Закрыть">×</button>
+
+    <h3 class="email-modal__title" id="emailModalTitle">Написать на почту</h3>
+    <span class="email-modal__address">iiiliii@inbox.ru</span>
+
+    <div class="email-modal__options">
+      <button class="email-option" type="button" id="emailCopy">
+        <span class="icon icon--copy" aria-hidden="true">📋</span>
+        <span class="meta">
+          Скопировать адрес
+          <small>Вставить в любом почтовом сервисе</small>
+        </span>
+      </button>
+
+      <a class="email-option"
+         href="https://e.mail.ru/compose/?to=iiiliii@inbox.ru"
+         target="_blank" rel="noopener noreferrer">
+        <span class="icon icon--mailru" aria-hidden="true">@</span>
+        <span class="meta">
+          Написать в Mail.ru
+          <small>Откроется в новой вкладке</small>
+        </span>
+      </a>
+
+      <a class="email-option"
+         href="https://mail.google.com/mail/?view=cm&fs=1&to=iiiliii@inbox.ru"
+         target="_blank" rel="noopener noreferrer">
+        <span class="icon icon--gmail" aria-hidden="true">G</span>
+        <span class="meta">
+          Написать в Gmail
+          <small>Откроется в новой вкладке</small>
+        </span>
+      </a>
+
+      <a class="email-option"
+         href="https://mail.yandex.ru/compose?to=iiiliii@inbox.ru"
+         target="_blank" rel="noopener noreferrer">
+        <span class="icon icon--yandex" aria-hidden="true">Я</span>
+        <span class="meta">
+          Написать в Яндекс.Почте
+          <small>Откроется в новой вкладке</small>
+        </span>
+      </a>
+
+      <a class="email-option" href="mailto:iiiliii@inbox.ru">
+        <span class="icon icon--app" aria-hidden="true">✉</span>
+        <span class="meta">
+          Открыть почтовый клиент
+          <small>Outlook, Thunderbird, Apple Mail…</small>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TOAST ================= -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (function () {
@@ -908,7 +1138,6 @@
     panels[cat.id] = document.getElementById('panel-' + cat.id);
   });
 
-  /* Ленивый рендер: строим сетку только при первом открытии вкладки */
   function renderPanel(id) {
     if (rendered.has(id)) return;
     const items = itemsByCat(id);
@@ -948,7 +1177,6 @@
     if (chip) activateTab(chip.dataset.tab, false);
   });
 
-  /* Навигация с клавиатуры (стрелки / Home / End) */
   tablist.addEventListener('keydown', (e) => {
     const keys = ['ArrowRight', 'ArrowLeft', 'Home', 'End'];
     if (!keys.includes(e.key)) return;
@@ -999,11 +1227,97 @@
   activateTab('all', false);
   handleHash();
 
-  /* Тень у шапки при скролле */
   const header = document.getElementById('siteHeader');
   const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  /* ==========================================================
+     EMAIL MODAL + TOAST
+     ========================================================== */
+  const EMAIL = 'iiiliii@inbox.ru';
+  const emailModal = document.getElementById('emailModal');
+  const toast = document.getElementById('toast');
+  let lastFocused = null;
+  let toastTimer = null;
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2800);
+  }
+
+  function openEmailModal(triggerEl) {
+    lastFocused = triggerEl || document.activeElement;
+    emailModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+
+    // Фокус на первое действие
+    const firstOption = emailModal.querySelector('.email-option');
+    if (firstOption) {
+      setTimeout(() => firstOption.focus({ preventScroll: true }), 40);
+    }
+  }
+
+  function closeEmailModal() {
+    emailModal.hidden = true;
+    document.body.style.overflow = '';
+    if (lastFocused && typeof lastFocused.focus === 'function') {
+      lastFocused.focus({ preventScroll: true });
+    }
+  }
+
+  // Все кнопки «написать» открывают модалку
+  document.querySelectorAll('.js-email-btn').forEach((btn) => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      openEmailModal(this);
+    });
+  });
+
+  // Закрытие по клику на бэкдроп/крестик
+  emailModal.addEventListener('click', (e) => {
+    if (e.target.closest('[data-close]')) closeEmailModal();
+  });
+
+  // Закрытие по Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !emailModal.hidden) closeEmailModal();
+  });
+
+  // Копирование адреса (с фолбэком для http и старых браузеров)
+  async function copyEmail() {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(EMAIL);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = EMAIL;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.top = '-1000px';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, ta.value.length);
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (!ok) throw new Error('execCommand failed');
+      }
+      showToast('Адрес скопирован: ' + EMAIL);
+    } catch (err) {
+      showToast('Не удалось скопировать — выделите адрес вручную');
+    }
+  }
+
+  const copyBtn = document.getElementById('emailCopy');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      copyEmail();
+      closeEmailModal();
+    });
+  }
 })();
 </script>
 </body>
