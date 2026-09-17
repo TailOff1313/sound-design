@@ -5,551 +5,1006 @@
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Иван Молчанов — Саунд-дизайн</title>
+  <meta name="description" content="Иван Молчанов (TailOff Music) — саунд-дизайн, озвучка, звукорежиссура. Портфолио работ: реклама, кино, игры, видео.">
+  <title>Иван Молчанов — Саунд-дизайн, озвучка, звукорежиссура</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    /* ===== RESET & BASE ===== */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    /* ============================================================
+       TOKENS
+       ============================================================ */
+    :root {
+      --bg:            #07090e;
+      --surface:       rgba(255, 255, 255, 0.035);
+      --surface-2:     rgba(255, 255, 255, 0.07);
+      --border:        rgba(255, 255, 255, 0.09);
+      --border-strong: rgba(255, 255, 255, 0.18);
+
+      --text:          #e9eef6;
+      --text-strong:   #ffffff;
+      --muted:         #97a7bd;
+      --muted-2:       #66768c;
+
+      --accent:        #ff9d2e;
+      --accent-deep:   #f89202;
+      --accent-soft:   rgba(255, 157, 46, 0.14);
+      --accent-glow:   rgba(255, 157, 46, 0.35);
+
+      --radius:        20px;
+      --radius-sm:     12px;
+      --header-h:      68px;
+      --ease:          cubic-bezier(0.2, 0.8, 0.3, 1);
+    }
+
+    /* ============================================================
+       BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: #0a0f1a;
-      background-image: radial-gradient(ellipse at 20% 30%, #0f2847, #050a14);
-      color: #eef2f7;
-      line-height: 1.6;
+      margin: 0;
       min-height: 100vh;
-      padding: 0 20px 40px;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(1100px 620px at 12% -8%, rgba(255, 157, 46, 0.10), transparent 62%),
+        radial-gradient(900px 520px at 88% 2%, rgba(78, 161, 255, 0.09), transparent 58%);
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
-    /* ===== КОНТЕЙНЕР ===== */
+    img, svg, iframe { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; }
+    h1, h2, h3, p { margin: 0; }
+    ul { margin: 0; padding: 0; list-style: none; }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    ::selection { background: var(--accent); color: #14100a; }
+
     .container {
-      max-width: 1400px;
+      width: 100%;
+      max-width: 1280px;
       margin: 0 auto;
+      padding: 0 24px;
     }
 
-    /* ===== HEADER ===== */
-    header {
-      text-align: center;
-      padding: 3rem 1rem 2rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      margin-bottom: 2rem;
-    }
-
-    .logo-wrap {
-      display: flex;
-      flex-direction: column;
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      display: inline-flex;
       align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.92rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background .25s var(--ease), border-color .25s var(--ease),
+                  transform .25s var(--ease), box-shadow .25s var(--ease), color .25s;
+    }
+    .btn:hover {
+      background: var(--surface-2);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
     }
 
-    .sound-wave-logo {
-      width: 80px;
-      height: 80px;
+    .btn-primary {
+      background: linear-gradient(180deg, #ffab45, var(--accent-deep));
+      border-color: transparent;
+      color: #17110a;
+      box-shadow: 0 10px 30px -10px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(180deg, #ffb75c, #ff9d2e);
+      border-color: transparent;
+      box-shadow: 0 16px 38px -10px var(--accent-glow);
+    }
+
+    .btn-sm { padding: 9px 18px; font-size: 0.85rem; }
+
+    /* ============================================================
+       HEADER
+       ============================================================ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(7, 9, 14, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s var(--ease), background .3s var(--ease);
+    }
+    .site-header.is-scrolled {
+      border-bottom-color: var(--border);
+      background: rgba(7, 9, 14, 0.88);
+    }
+
+    .header-inner {
+      height: var(--header-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      background: linear-gradient(150deg, rgba(255, 157, 46, 0.16), rgba(255, 157, 46, 0.04));
+      border: 1px solid rgba(255, 157, 46, 0.28);
+      transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+    }
+    .brand:hover .brand-logo {
+      transform: rotate(-4deg) scale(1.05);
+      box-shadow: 0 0 22px -4px var(--accent-glow);
+    }
+    .brand-logo svg {
+      width: 22px;
+      height: 22px;
       fill: none;
-      stroke: #f89202;
-      stroke-width: 5;
+      stroke: var(--accent);
+      stroke-width: 6;
       stroke-linecap: round;
       stroke-linejoin: round;
-      filter: drop-shadow(0 0 20px rgba(248, 146, 2, 0.4));
-      transition: all 0.3s ease;
-      margin-bottom: 1.2rem;
-    }
-    .sound-wave-logo:hover {
-      transform: scale(1.1) rotate(-2deg);
-      filter: drop-shadow(0 0 35px rgba(255, 180, 40, 0.8));
     }
 
-    h1 {
-      font-size: clamp(2.6rem, 6vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #ffffff 30%, #b0cfff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1.1;
-      margin-bottom: 0.3rem;
-    }
-
-    .subtitle {
-      font-size: clamp(1rem, 1.6vw, 1.3rem);
-      font-weight: 400;
-      color: #b6c8e6;
-      letter-spacing: 0.02em;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 0.8rem;
-      display: inline-block;
-      margin-bottom: 0.5rem;
-    }
-
-    .contacts-row {
-      font-size: 0.95rem;
-      color: #a0b8d9;
-      margin-top: 0.5rem;
-    }
-    .contacts-row a {
-      color: #f89202;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s, text-shadow 0.2s;
-    }
-    .contacts-row a:hover {
-      color: #ffb84d;
-      text-shadow: 0 0 12px rgba(248, 146, 2, 0.3);
-    }
-
-    /* ===== НАВИГАЦИЯ (кнопки-якоря + табы) ===== */
-    .nav-block {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px 16px;
-      margin: 1.8rem 0 0.5rem;
-    }
-
-    .nav-btn {
-      display: inline-block;
-      padding: 10px 24px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 60px;
-      color: #c8d8f0;
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      backdrop-filter: blur(6px);
-      cursor: pointer;
-      background: rgba(10, 20, 40, 0.5);
-    }
-    .nav-btn:hover {
-      background: rgba(248, 146, 2, 0.15);
-      border-color: #f89202;
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(248, 146, 2, 0.15);
-    }
-    .nav-btn.active {
-      background: #f89202;
-      border-color: #f89202;
-      color: #0a0f1a;
-      box-shadow: 0 8px 30px rgba(248, 146, 2, 0.35);
-    }
-
-    /* ===== КАТЕГОРИИ (спейсеры) теперь скрыты, но оставлены для якорей ===== */
-    .section-anchor {
-      scroll-margin-top: 100px;
-    }
-
-    /* ===== СЕТКА ПОРТФОЛИО ===== */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    /* ===== КАРТОЧКА ===== */
-    .case-card {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 24px;
-      padding: 1.5rem 1.5rem 1.8rem;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
-      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
-      height: 100%;
-    }
-    .case-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(248, 146, 2, 0.4);
-      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(248, 146, 2, 0.05);
-    }
-
-    .case-card h3 {
-      font-size: 1.05rem;
+    .brand-text { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+    .brand-text strong {
+      font-size: 0.98rem;
       font-weight: 700;
-      letter-spacing: 0.02em;
-      color: #ffffff;
-      margin-bottom: 0.4rem;
-      position: relative;
-      padding-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
+      white-space: nowrap;
     }
-    .case-card h3::after {
+    .brand-text small {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      white-space: nowrap;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+    .header-nav a:not(.btn) {
+      position: relative;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color .2s;
+    }
+    .header-nav a:not(.btn)::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 40px;
+      left: 0; right: 100%;
+      bottom: -5px;
       height: 2px;
-      background: #f89202;
-      box-shadow: 0 0 12px rgba(248, 146, 2, 0.6);
+      background: var(--accent);
+      border-radius: 2px;
+      transition: right .28s var(--ease);
+    }
+    .header-nav a:not(.btn):hover { color: var(--text-strong); }
+    .header-nav a:not(.btn):hover::after { right: 0; }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero { padding: 96px 0 72px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 15px;
+      margin-bottom: 26px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .eyebrow::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
     }
 
-    .case-card p {
-      color: #b6c8e6;
-      font-size: 0.95rem;
-      margin: 0.8rem 0 1.5rem;
-      flex-grow: 1;
-      line-height: 1.5;
+    .hero h1 {
+      max-width: 16ch;
+      font-size: clamp(2.3rem, 5.6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.035em;
+      background: linear-gradient(140deg, #ffffff 22%, #a9c4e8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
     }
 
-    .case-card .video-wrapper {
-      position: relative;
-      padding-top: 56.25%; /* 16:9 */
-      width: 100%;
-      border-radius: 14px;
+    .hero .lead {
+      max-width: 62ch;
+      margin-top: 24px;
+      font-size: clamp(1rem, 1.35vw, 1.12rem);
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 52px;
+      margin-top: 52px;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
+    }
+    .stats li { display: flex; flex-direction: column; }
+    .stats strong {
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--text-strong);
+    }
+    .stats li.is-text strong {
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 7px 0 6px;
+      color: var(--muted);
+    }
+    .stats span {
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+    }
+
+    /* ============================================================
+       WORKS HEAD
+       ============================================================ */
+    .works-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 40px;
+    }
+    .works-head h2 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+    }
+    .works-head p {
+      max-width: 46ch;
+      font-size: 0.94rem;
+      color: var(--muted-2);
+    }
+
+    /* ============================================================
+       FILTER BAR (sticky)
+       ============================================================ */
+    .filters-bar {
+      position: sticky;
+      top: var(--header-h);
+      z-index: 50;
+      margin-top: 24px;
+      padding: 14px 0;
+      background: rgba(7, 9, 14, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filters {
+      display: flex;
+      gap: 9px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-snap-type: x proximity;
+    }
+    .filters::-webkit-scrollbar { display: none; }
+
+    .chip {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 17px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 0.875rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      scroll-snap-align: start;
+      transition: background .22s var(--ease), border-color .22s var(--ease),
+                  color .22s var(--ease), transform .22s var(--ease);
+    }
+    .chip:hover {
+      color: var(--text-strong);
+      background: var(--surface-2);
+      border-color: var(--border-strong);
+      transform: translateY(-1px);
+    }
+    .chip[aria-selected="true"] {
+      background: linear-gradient(180deg, #ffab45, var(--accent-deep));
+      border-color: transparent;
+      color: #17110a;
+      box-shadow: 0 8px 24px -10px var(--accent-glow);
+    }
+
+    .chip .count {
+      display: inline-grid;
+      place-items: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.09);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: inherit;
+      opacity: .85;
+    }
+    .chip[aria-selected="true"] .count { background: rgba(0, 0, 0, 0.16); opacity: 1; }
+
+    /* ============================================================
+       GRID + CARDS
+       ============================================================ */
+    .panel { padding: 34px 0 0; }
+    .panel[hidden] { display: none; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
       overflow: hidden;
-      background: #000;
-      flex-shrink: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015));
+      box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+      animation: fadeUp .55s var(--ease) backwards;
+      animation-delay: calc(var(--i, 0) * 45ms);
+      transition: transform .35s var(--ease), border-color .35s var(--ease),
+                  box-shadow .35s var(--ease);
     }
-    .case-card .video-wrapper iframe {
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 157, 46, 0.38);
+      box-shadow:
+        0 34px 64px -26px rgba(0, 0, 0, 1),
+        0 0 0 1px rgba(255, 157, 46, 0.08),
+        0 0 42px -14px var(--accent-glow);
+    }
+
+    .card-media {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-media iframe {
       position: absolute;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
       border: 0;
-      display: block;
     }
 
-    /* ===== ВКЛАДКИ (отображение) ===== */
-    .tab-content {
-      display: none;
-    }
-    .tab-content.active {
-      display: block;
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+      padding: 20px 22px 24px;
     }
 
-    /* ===== FOOTER ===== */
-    footer {
-      margin-top: 4rem;
-      padding: 2.5rem 1rem 1rem;
-      text-align: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      color: #7a8fa8;
+    .card-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .card-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      line-height: 1.34;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
+    }
+
+    .card-block { display: flex; flex-direction: column; gap: 5px; }
+    .card-label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+    }
+    .card-block p {
       font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--muted);
     }
-    footer .contacts-row {
-      margin-bottom: 0.8rem;
-    }
-    footer a {
-      color: #f89202;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    footer a:hover {
-      color: #ffb84d;
+    .card-block + .card-block {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
     }
 
-    /* ===== АНИМАЦИИ ===== */
-    .fade-in {
-      animation: fadeUp 0.6s ease forwards;
-      opacity: 0;
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .site-footer { padding: 90px 0 44px; }
+
+    .contact-card {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 40px;
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      background:
+        radial-gradient(700px 260px at 8% 0%, rgba(255, 157, 46, 0.12), transparent 70%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
     }
+    .contact-card h2 {
+      font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-strong);
+    }
+    .contact-card p {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .copyright {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted-2);
+    }
+
+    /* ============================================================
+       ANIMATIONS
+       ============================================================ */
     @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(24px); }
-      100% { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===== АДАПТИВ ===== */
-    @media (max-width: 700px) {
-      body { padding: 0 12px 30px; }
-      .portfolio-grid { grid-template-columns: 1fr; gap: 1.8rem; }
-      .nav-block { gap: 8px; }
-      .nav-btn { padding: 8px 16px; font-size: 0.8rem; }
-      .case-card { padding: 1.2rem; }
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 900px) {
+      :root { --header-h: 62px; }
+      .header-nav a:not(.btn) { display: none; }
+      .hero { padding: 68px 0 52px; }
+      .stats { gap: 22px 40px; margin-top: 40px; }
+      .contact-card { padding: 30px 24px; }
     }
-    @media (min-width: 701px) and (max-width: 1100px) {
-      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+
+    @media (max-width: 640px) {
+      .container { padding: 0 18px; }
+      .grid { grid-template-columns: 1fr; gap: 18px; }
+      .brand-text small { display: none; }
+      .card-body { padding: 18px 18px 20px; }
+      .hero-actions .btn { flex: 1 1 auto; }
+      .contact-actions { width: 100%; }
+      .contact-actions .btn { flex: 1 1 auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
     }
   </style>
 </head>
+
 <body>
-<div class="container">
 
-  <!-- ========== HEADER ========== -->
-  <header>
-    <div class="logo-wrap">
-      <svg class="sound-wave-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <polyline points="10,50 25,30 40,60 55,25 70,55 85,40" />
-      </svg>
-      <h1>Иван Молчанов</h1>
-      <span class="subtitle">«TailOff Music» — Саунд‑дизайн, озвучка, звукорежиссура</span>
+<!-- ================= HEADER ================= -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a class="brand" href="#top" aria-label="Иван Молчанов — на главную">
+      <span class="brand-logo" aria-hidden="true">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="10,50 25,30 40,60 55,25 70,55 85,40"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong>Иван Молчанов</strong>
+        <small>TailOff Music</small>
+      </span>
+    </a>
+
+    <nav class="header-nav" aria-label="Основная навигация">
+      <a href="#works">Работы</a>
+      <a href="#contact">Контакты</a>
+      <a class="btn btn-sm btn-primary" href="mailto:iiiliii@inbox.ru">Написать</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="top">
+    <div class="container">
+      <span class="eyebrow">TailOff Music · Саунд-дизайн</span>
+
+      <h1>Звук, который делает видео живым</h1>
+
+      <p class="lead">
+        Меня зовут Иван Молчанов. Озвучиваю и переозвучиваю видео, собираю саунд-дизайн
+        для рекламы, кино и игр, записываю и обрабатываю музыкальные инструменты.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#works">Смотреть работы</a>
+        <a class="btn" href="mailto:iiiliii@inbox.ru">Обсудить проект</a>
+      </div>
+
+      <ul class="stats">
+        <li>
+          <strong id="statWorks">17</strong>
+          <span>работ в портфолио</span>
+        </li>
+        <li>
+          <strong>4</strong>
+          <span>направления</span>
+        </li>
+        <li class="is-text">
+          <strong>Реклама · Кино · Игры</strong>
+          <span>сферы применения</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= WORKS ================= -->
+  <section id="works" style="scroll-margin-top: calc(var(--header-h) + 8px);">
+    <div class="container">
+      <div class="works-head">
+        <h2>Портфолио</h2>
+        <p>Выберите направление — или посмотрите все работы подряд.</p>
+      </div>
     </div>
 
-    <div class="contacts-row">
-      📧 <a href="https://e.mail.ru/compose/">iiiliii@inbox.ru</a> &nbsp;|&nbsp;
-      VK <a href="https://vk.com/tailoff" target="_blank">@tailoff</a>
+    <!-- Sticky filter bar -->
+    <div class="filters-bar">
+      <div class="container">
+        <div class="filters" role="tablist" aria-label="Категории работ" id="tablist"></div>
+      </div>
     </div>
 
-    <!-- Навигация: кнопки-якоря (переключают вкладки) -->
-    <div class="nav-block" id="navTabs">
-      <button class="nav-btn active" data-tab="tab-all">Все работы</button>
-      <button class="nav-btn" data-tab="tab-voice">Озвучка + Саунд-дизайн видео</button>
-      <button class="nav-btn" data-tab="tab-redesign">Редизайн звука</button>
-      <button class="nav-btn" data-tab="tab-instruments">Озвучка музыкальных инструментов</button>
-      <button class="nav-btn" data-tab="tab-video">Саунд-дизайн видео контента</button>
+    <div class="container">
+      <div class="panel" id="panel-all"  role="tabpanel" aria-labelledby="tab-all"></div>
+      <div class="panel" id="panel-voice" role="tabpanel" aria-labelledby="tab-voice" hidden></div>
+      <div class="panel" id="panel-redesign" role="tabpanel" aria-labelledby="tab-redesign" hidden></div>
+      <div class="panel" id="panel-instruments" role="tabpanel" aria-labelledby="tab-instruments" hidden></div>
+      <div class="panel" id="panel-video" role="tabpanel" aria-labelledby="tab-video" hidden></div>
     </div>
-  </header>
+  </section>
+</main>
 
-  <!-- ========== ПОРТФОЛИО (табы) ========== -->
-  <div class="tab-content active" id="tab-all">
-    <div class="portfolio-grid" id="grid-all"></div>
-  </div>
-
-  <div class="tab-content" id="tab-voice">
-    <div class="portfolio-grid" id="grid-voice"></div>
-  </div>
-
-  <div class="tab-content" id="tab-redesign">
-    <div class="portfolio-grid" id="grid-redesign"></div>
-  </div>
-
-  <div class="tab-content" id="tab-instruments">
-    <div class="portfolio-grid" id="grid-instruments"></div>
-  </div>
-
-  <div class="tab-content" id="tab-video">
-    <div class="portfolio-grid" id="grid-video"></div>
-  </div>
-
-  <!-- ========== FOOTER ========== -->
-  <footer>
-    <div class="contacts-row">
-      📧 <a href="https://e.mail.ru/compose/">iiiliii@inbox.ru</a> &nbsp;|&nbsp;
-      VK <a href="https://vk.com/tailoff" target="_blank">@tailoff</a>
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="contact-card">
+      <div>
+        <h2>Нужен звук для проекта?</h2>
+        <p>Напишите — обсудим задачу, сроки и стоимость.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="mailto:iiiliii@inbox.ru">iiiliii@inbox.ru</a>
+        <a class="btn" href="https://vk.com/tailoff" target="_blank" rel="noopener noreferrer">VK @tailoff</a>
+      </div>
     </div>
-    <p style="color: #5a6f88;">&copy; 2026 Иван Молчанов. Все работы защищены.</p>
-  </footer>
-</div>
+
+    <p class="copyright">© 2026 Иван Молчанов · TailOff Music. Все работы защищены.</p>
+  </div>
+</footer>
 
 <script>
-  (function() {
-    // ----- ДАННЫЕ (все 16 кейсов) -----
-    const casesData = [
-      // 1. Озвучка + Саунд-дизайн видео (tab-voice)
-      {
-        category: 'voice',
-        title: 'Озвучка: мультяшная анимация и озвучка бизнес ролика',
-        desc: 'Задача: озвучить промо-ролик про стартап с мультяшной анимацией. Нужно было сделать голос диктора уверенным, но дружелюбным, а эффекты — «чистыми» и мультяшными. Использовал: запись в студии, обработку в Izotope, подбор эффектов из библиотеки Cartoon.',
-        iframe: 'https://kinescope.io/embed/iDyBAQF9szouWmqUxbh2Sr'
-      },
-      {
-        category: 'voice',
-        title: 'Озвучка: роботизированные технологии',
-        desc: 'Задача: создать звуковую палитру для ролика про роботов и автоматизацию. Нужно было передать технологичность и точность. Использовал: озвучка ИИ с пресетом "Narrative Male" синтез звуков в Serum, обработку гранулярным синтезатором, добавление цифровых шумов и бипов.',
-        iframe: 'https://kinescope.io/embed/a5ytSzPC4WUFRjpWekW9pt'
-      },
-      {
-        category: 'voice',
-        title: 'Озвучка: бег девушки на тренажёре',
-        desc: 'Задача: собрать сцену бега девушки на беговой дорожке под мотивирующую музыку и дикторскую озвучку. Нужно было синхронизировать шаги картинкой, сделать голос диктора чистым и выделить его на фоне музыки. Использовал: автоматизацию громкости шагов, эквализацию голоса, компрессию для плотного звучания.',
-        iframe: 'https://kinescope.io/embed/ed9A5Es1YVEXjmzvJid66M'
-      },
-      // 4. Редизайн звука (tab-redesign)
-      {
-        category: 'redesign',
-        title: 'Редизайн звука: гонки в Need for Speed',
-        desc: 'Задача: полностью переозвучить фрагмент тизера-трейлера по игре Need for Speed. Нужно было заменить стандартные звуки на более кинематографичные и детализированные. Использовал: запись реальных авто, обработку транзиентов, усиление низких частот для ощущения скорости.',
-        iframe: 'https://kinescope.io/embed/cherosAuPrH53Jm3WvaZs2'
-      },
-      {
-        category: 'redesign',
-        title: 'Редизайн звука: Spider-man 3',
-        desc: 'Задача: полностью переозвучить фрагмент фильма Человек-паук 3. Нужно было заменить стандартные звуки на более кинематографичные и детализированные. Использовал: запись реальных звуков, обработку, усиление низких частот для ощущения присутствия.',
-        iframe: 'https://kinescope.io/embed/wT38TUhpsFnnvcz1PGpiJe'
-      },
-      {
-        category: 'redesign',
-        title: 'Редизайн звука: Prince of Persia',
-        desc: 'Задача: переозвучить сцену сражения в стиле Prince of Persia. Нужно было передать лёгкость движений и атмосферу битвы. Использовал: запись шагов по бетонным поверхностям, обработку для «воздушности», добавление эха и реверберации.',
-        iframe: 'https://kinescope.io/embed/fhFWL5GSnpoz1SxSusbNGf'
-      },
-      // 7. Озвучка музыкальных инструментов (tab-instruments)
-      {
-        category: 'instruments',
-        title: 'Озвучка: игра на акустической гитаре',
-        desc: 'Задача: записать и обработать звук акустической гитары для рекламного ролика. Нужно было добиться тёплого, «лампового» звучания без лишних шумов. Использовал: конденсаторный микрофон, эквализацию для акцента на средних частотах, мягкую компрессию.',
-        iframe: 'https://kinescope.io/embed/6vnLyXzK5zJm5bKzJbJYWL'
-      },
-      {
-        category: 'instruments',
-        title: 'Озвучка: барабанная установка',
-        desc: 'Задача: записать и обработать звук ударной установки. Нужно было подчеркнуть атаку каждого удара и сохранить естественность звучания. Использовал: эквализацию для разделения тарелок и барабанов, компрессию для контроля динамики.',
-        iframe: 'https://kinescope.io/embed/iFmKE25MxwBE1FyBPj9sJP'
-      },
-      {
-        category: 'instruments',
-        title: 'Озвучка: игра оркестра',
-        desc: 'Задача: озвучить сцену выступления симфонического оркестра. Нужно было передать объём зала, баланс между инструментами и естественность звучания. Использовал: оркестровые библиотеки для Kontakt, эквализацию для разделения групп инструментов, реверберацию для имитации акустики зала.',
-        iframe: 'https://kinescope.io/embed/hQTLCUExqZ2gumRs3JUkuB'
-      },
-      // 10. Саунд-дизайн видео контента (tab-video)
-      {
-        category: 'video',
-        title: 'Саунд-дизайн: водопад',
-        desc: 'Задача: записать и обработать звук водопада для медитативного ролика. Нужно было передать мощь и спокойствие одновременно. Использовал: полевые записи, обработку для выделения разных слоёв (брызги, поток, эхо), панорамирование для создания эффекта присутствия.',
-        iframe: 'https://kinescope.io/embed/wf5P6jKZs8tUHjGAsxDdn2'
-      },
-      {
-        category: 'video',
-        title: 'Саунд-дизайн: космос',
-        desc: 'Задача: создать звуковую атмосферу космоса (хотя в вакууме нет звука — это художественная интерпретация). Нужно было передать ощущение пустоты и масштаба. Использовал: синтезированные текстуры, обработку для создания «космического» эха, панорамирование для эффекта движения.',
-        iframe: 'https://kinescope.io/embed/s6jy3ZxdzYix4Ka5NoHMJy'
-      },
-      {
-        category: 'video',
-        title: 'Саунд-дизайн: хоррор-сцена в доме',
-        desc: 'Задача: озвучить напряжённую сцену в мистическом доме для хоррор-ролика. Нужно было создать тревожную атмосферу и подчеркнуть напряжение. Использовал: запись скрипов и шорохов, обработку для усиления напряжения, панорамирование для создания эффекта присутствия.',
-        iframe: 'https://kinescope.io/embed/2WxZ1B3paFEdvpLazZiq8d'
-      },
-      {
-        category: 'video',
-        title: 'Саунд-дизайн: рыцарское сражение',
-        desc: 'Задача: озвучить масштабную сцену битвы рыцарей. Нужно было передать мощь и хаос сражения. Использовал: запись ударов по металлу, обработку для усиления низких частот, панорамирование для создания эффекта толпы.',
-        iframe: 'https://kinescope.io/embed/7pZAydiu9KnweeWz9N9t7k'
-      },
-      {
-        category: 'video',
-        title: 'Саунд-дизайн: стадион',
-        desc: 'Задача: создать звуковую атмосферу футбольного стадиона перед началом матча. Нужно было передать эмоции толпы и масштаб события. Использовал: запись криков болельщиков, звуки фотокамер обработку для создания эффекта «волны», панорамирование для имитации движения толпы.',
-        iframe: 'https://kinescope.io/embed/mKbvbHB692wMkBFbQd933p'
-      },
-      {
-        category: 'video',
-        title: 'Саунд-дизайн: стрельба в баре',
-        desc: 'Задача: озвучить напряжённую сцену стрельбы в замкнутом пространстве. Нужно было передать эхо, отражения и ощущение эмоционального накала. Использовал: запись выстрелов в замкнутых локациях, обработку реверберацией, панорамирование для создания эффекта движения.',
-        iframe: 'https://kinescope.io/embed/w4EQza4f6hDQo3nYaTkK64'
-      },
-      {
-        category: 'video',
-        title: 'Саунд-дизайн: Имитация сцены пожара',
-        desc: 'Задача: создать реалистичную звуковую картину пожара. Нужно было передать нарастание интенсивности и объём пространства. Использовал: использовал звуковыке слои огня и треска, обработку реверберацией и панорамированием для эффекта присутствия.',
-        iframe: 'https://kinescope.io/embed/8xyaCAkhpgBxn86y9qLiqW'
-      },
-      {
-        category: 'video',
-        title: 'Саунд-дизайн: летящий дракон',
-        desc: 'Задача: создать звук полёта и рёва дракона для фэнтезийного ролика. Нужно было сделать звук мощным, но не перегруженным. Использовал: наложение слоёв (ветер, крылья, рык), обработку для создания объёма, панорамирование для эффекта пролёта перед зрителем.',
-        iframe: 'https://kinescope.io/embed/ti6QvRaC6UfMFtjz1znHKV'
+(function () {
+  'use strict';
+
+  /* ==========================================================
+     ДАННЫЕ
+     ========================================================== */
+  const CATEGORIES = [
+    { id: 'all',         label: 'Все работы' },
+    { id: 'voice',       label: 'Озвучка + саунд-дизайн' },
+    { id: 'redesign',    label: 'Редизайн звука' },
+    { id: 'instruments', label: 'Музыкальные инструменты' },
+    { id: 'video',       label: 'Саунд-дизайн видео' }
+  ];
+
+  const TAG_BY_CAT = {
+    voice:       'Озвучка + саунд-дизайн',
+    redesign:    'Редизайн звука',
+    instruments: 'Музыкальные инструменты',
+    video:       'Саунд-дизайн видео'
+  };
+
+  const CASES = [
+    /* ---------- Озвучка + саунд-дизайн видео ---------- */
+    {
+      cat: 'voice',
+      title: 'Мультяшная анимация и бизнес-ролик',
+      task: 'Озвучить промо-ролик про стартап с мультяшной анимацией. Нужно было сделать голос диктора уверенным, но дружелюбным, а эффекты — «чистыми» и мультяшными.',
+      tools: 'Запись в студии, обработка в iZotope, подбор эффектов из библиотеки Cartoon.',
+      src: 'https://kinescope.io/embed/iDyBAQF9szouWmqUxbh2Sr'
+    },
+    {
+      cat: 'voice',
+      title: 'Роботизированные технологии',
+      task: 'Создать звуковую палитру для ролика про роботов и автоматизацию. Нужно было передать технологичность и точность.',
+      tools: 'Озвучка ИИ с пресетом «Narrative Male», синтез звуков в Serum, обработка гранулярным синтезатором, добавление цифровых шумов и бипов.',
+      src: 'https://kinescope.io/embed/a5ytSzPC4WUFRjpWekW9pt'
+    },
+    {
+      cat: 'voice',
+      title: 'Бег девушки на тренажёре',
+      task: 'Собрать сцену бега девушки на беговой дорожке под мотивирующую музыку и дикторскую озвучку. Нужно было синхронизировать шаги с картинкой, сделать голос диктора чистым и выделить его на фоне музыки.',
+      tools: 'Автоматизация громкости шагов, эквализация голоса, компрессия для плотного звучания.',
+      src: 'https://kinescope.io/embed/ed9A5Es1YVEXjmzvJid66M'
+    },
+
+    /* ---------- Редизайн звука ---------- */
+    {
+      cat: 'redesign',
+      title: 'Гонки в Need for Speed',
+      task: 'Полностью переозвучить фрагмент тизера-трейлера по игре Need for Speed. Заменить стандартные звуки на более кинематографичные и детализированные.',
+      tools: 'Запись реальных авто, обработка транзиентов, усиление низких частот для ощущения скорости.',
+      src: 'https://kinescope.io/embed/cherosAuPrH53Jm3WvaZs2'
+    },
+    {
+      cat: 'redesign',
+      title: 'Spider-Man 3',
+      task: 'Полностью переозвучить фрагмент фильма «Человек-паук 3». Заменить стандартные звуки на более кинематографичные и детализированные.',
+      tools: 'Запись реальных звуков, обработка, усиление низких частот для ощущения присутствия.',
+      src: 'https://kinescope.io/embed/wT38TUhpsFnnvcz1PGpiJe'
+    },
+    {
+      cat: 'redesign',
+      title: 'Prince of Persia',
+      task: 'Переозвучить сцену сражения в стиле Prince of Persia. Передать лёгкость движений и атмосферу битвы.',
+      tools: 'Запись шагов по бетонным поверхностям, обработка для «воздушности», добавление эха и реверберации.',
+      src: 'https://kinescope.io/embed/fhFWL5GSnpoz1SxSusbNGf'
+    },
+
+    /* ---------- Озвучка музыкальных инструментов ---------- */
+    {
+      cat: 'instruments',
+      title: 'Игра на акустической гитаре',
+      task: 'Записать и обработать звук акустической гитары для рекламного ролика. Добиться тёплого, «лампового» звучания без лишних шумов.',
+      tools: 'Конденсаторный микрофон, эквализация для акцента на средних частотах, мягкая компрессия.',
+      src: 'https://kinescope.io/embed/6vnLyXzK5zJm5bKzJbJYWL'
+    },
+    {
+      cat: 'instruments',
+      title: 'Барабанная установка',
+      task: 'Записать и обработать звук ударной установки. Подчеркнуть атаку каждого удара и сохранить естественность звучания.',
+      tools: 'Эквализация для разделения тарелок и барабанов, компрессия для контроля динамики.',
+      src: 'https://kinescope.io/embed/iFmKE25MxwBE1FyBPj9sJP'
+    },
+    {
+      cat: 'instruments',
+      title: 'Игра оркестра',
+      task: 'Озвучить сцену выступления симфонического оркестра. Передать объём зала, баланс между инструментами и естественность звучания.',
+      tools: 'Оркестровые библиотеки для Kontakt, эквализация для разделения групп инструментов, реверберация для имитации акустики зала.',
+      src: 'https://kinescope.io/embed/hQTLCUExqZ2gumRs3JUkuB'
+    },
+
+    /* ---------- Саунд-дизайн видео контента ---------- */
+    {
+      cat: 'video',
+      title: 'Водопад',
+      task: 'Записать и обработать звук водопада для медитативного ролика. Передать мощь и спокойствие одновременно.',
+      tools: 'Полевые записи, обработка для выделения разных слоёв (брызги, поток, эхо), панорамирование для эффекта присутствия.',
+      src: 'https://kinescope.io/embed/wf5P6jKZs8tUHjGAsxDdn2'
+    },
+    {
+      cat: 'video',
+      title: 'Космос',
+      task: 'Создать звуковую атмосферу космоса (художественная интерпретация — в вакууме звука нет). Передать ощущение пустоты и масштаба.',
+      tools: 'Синтезированные текстуры, обработка для создания «космического» эха, панорамирование для эффекта движения.',
+      src: 'https://kinescope.io/embed/s6jy3ZxdzYix4Ka5NoHMJy'
+    },
+    {
+      cat: 'video',
+      title: 'Хоррор-сцена в доме',
+      task: 'Озвучить напряжённую сцену в мистическом доме для хоррор-ролика. Создать тревожную атмосферу и подчеркнуть напряжение.',
+      tools: 'Запись скрипов и шорохов, обработка для усиления напряжения, панорамирование для эффекта присутствия.',
+      src: 'https://kinescope.io/embed/2WxZ1B3paFEdvpLazZiq8d'
+    },
+    {
+      cat: 'video',
+      title: 'Рыцарское сражение',
+      task: 'Озвучить масштабную сцену битвы рыцарей. Передать мощь и хаос сражения.',
+      tools: 'Запись ударов по металлу, обработка для усиления низких частот, панорамирование для эффекта толпы.',
+      src: 'https://kinescope.io/embed/7pZAydiu9KnweeWz9N9t7k'
+    },
+    {
+      cat: 'video',
+      title: 'Стадион',
+      task: 'Создать звуковую атмосферу футбольного стадиона перед началом матча. Передать эмоции толпы и масштаб события.',
+      tools: 'Запись криков болельщиков, звуки фотокамер, обработка для создания эффекта «волны», панорамирование для имитации движения толпы.',
+      src: 'https://kinescope.io/embed/mKbvbHB692wMkBFbQd933p'
+    },
+    {
+      cat: 'video',
+      title: 'Стрельба в баре',
+      task: 'Озвучить напряжённую сцену стрельбы в замкнутом пространстве. Передать эхо, отражения и ощущение эмоционального накала.',
+      tools: 'Запись выстрелов в замкнутых локациях, обработка реверберацией, панорамирование для эффекта движения.',
+      src: 'https://kinescope.io/embed/w4EQza4f6hDQo3nYaTkK64'
+    },
+    {
+      cat: 'video',
+      title: 'Сцена пожара',
+      task: 'Создать реалистичную звуковую картину пожара. Передать нарастание интенсивности и объём пространства.',
+      tools: 'Звуковые слои огня и треска, обработка реверберацией и панорамированием для эффекта присутствия.',
+      src: 'https://kinescope.io/embed/8xyaCAkhpgBxn86y9qLiqW'
+    },
+    {
+      cat: 'video',
+      title: 'Летящий дракон',
+      task: 'Создать звук полёта и рёва дракона для фэнтезийного ролика. Сделать звук мощным, но не перегруженным.',
+      tools: 'Наложение слоёв (ветер, крылья, рык), обработка для создания объёма, панорамирование для эффекта пролёта перед зрителем.',
+      src: 'https://kinescope.io/embed/ti6QvRaC6UfMFtjz1znHKV'
+    }
+  ];
+
+  /* ==========================================================
+     УТИЛИТЫ
+     ========================================================== */
+  const esc = (str) => String(str).replace(/[&<>"']/g, (ch) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[ch]));
+
+  const itemsByCat = (id) => (id === 'all' ? CASES : CASES.filter((c) => c.cat === id));
+
+  /* ==========================================================
+     РЕНДЕР ФИЛЬТРОВ
+     ========================================================== */
+  const tablist = document.getElementById('tablist');
+
+  tablist.innerHTML = CATEGORIES.map((cat) => `
+    <button
+      class="chip"
+      id="tab-${cat.id}"
+      role="tab"
+      type="button"
+      aria-selected="false"
+      aria-controls="panel-${cat.id}"
+      tabindex="-1"
+      data-tab="${cat.id}">
+      <span>${esc(cat.label)}</span>
+      <span class="count">${itemsByCat(cat.id).length}</span>
+    </button>
+  `).join('');
+
+  /* ==========================================================
+     РЕНДЕР КАРТОЧЕК
+     ========================================================== */
+  function cardHTML(item, index) {
+    const delay = Math.min(index, 9);
+    return `
+      <article class="card" style="--i:${delay}">
+        <div class="card-media">
+          <iframe
+            src="${esc(item.src)}"
+            title="${esc(item.title)}"
+            loading="lazy"
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
+            allowfullscreen></iframe>
+        </div>
+        <div class="card-body">
+          <span class="card-tag">${esc(TAG_BY_CAT[item.cat])}</span>
+          <h3 class="card-title">${esc(item.title)}</h3>
+
+          <div class="card-block">
+            <span class="card-label">Задача</span>
+            <p>${esc(item.task)}</p>
+          </div>
+
+          <div class="card-block">
+            <span class="card-label">Инструменты</span>
+            <p>${esc(item.tools)}</p>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  const panels = {};
+  const rendered = new Set();
+
+  CATEGORIES.forEach((cat) => {
+    panels[cat.id] = document.getElementById('panel-' + cat.id);
+  });
+
+  /* Ленивый рендер: строим сетку только при первом открытии вкладки */
+  function renderPanel(id) {
+    if (rendered.has(id)) return;
+    const items = itemsByCat(id);
+    panels[id].innerHTML = `<div class="grid">${items.map(cardHTML).join('')}</div>`;
+    rendered.add(id);
+  }
+
+  /* ==========================================================
+     ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+     ========================================================== */
+  let currentTab = null;
+
+  function activateTab(id, focusChip) {
+    if (!panels[id] || id === currentTab) return;
+    currentTab = id;
+
+    renderPanel(id);
+
+    CATEGORIES.forEach((cat) => {
+      const isActive = cat.id === id;
+      const panel = panels[cat.id];
+      const chip = document.getElementById('tab-' + cat.id);
+
+      panel.hidden = !isActive;
+      chip.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      chip.tabIndex = isActive ? 0 : -1;
+
+      if (isActive && focusChip) {
+        chip.focus({ preventScroll: true });
+        chip.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
       }
-    ];
-
-    // ----- Рендеринг сеток -----
-    function renderGrid(containerId, items) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-      let html = '';
-      items.forEach(item => {
-        html += `
-          <article class="case-card fade-in">
-            <h3>${item.title}</h3>
-            <p>${item.desc}</p>
-            <div class="video-wrapper">
-              <iframe src="${item.iframe}" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;" allowfullscreen></iframe>
-            </div>
-          </article>
-        `;
-      });
-      container.innerHTML = html;
-    }
-
-    // Группировка по категориям
-    const allItems = casesData;
-    const voiceItems = casesData.filter(c => c.category === 'voice');
-    const redesignItems = casesData.filter(c => c.category === 'redesign');
-    const instrumentsItems = casesData.filter(c => c.category === 'instruments');
-    const videoItems = casesData.filter(c => c.category === 'video');
-
-    renderGrid('grid-all', allItems);
-    renderGrid('grid-voice', voiceItems);
-    renderGrid('grid-redesign', redesignItems);
-    renderGrid('grid-instruments', instrumentsItems);
-    renderGrid('grid-video', videoItems);
-
-    // ----- Переключение табов -----
-    const tabs = document.querySelectorAll('.nav-btn');
-    const contents = {
-      'tab-all': document.getElementById('tab-all'),
-      'tab-voice': document.getElementById('tab-voice'),
-      'tab-redesign': document.getElementById('tab-redesign'),
-      'tab-instruments': document.getElementById('tab-instruments'),
-      'tab-video': document.getElementById('tab-video')
-    };
-
-    function activateTab(tabId) {
-      // Скрыть все контенты
-      Object.values(contents).forEach(el => el.classList.remove('active'));
-      // Показать нужный
-      if (contents[tabId]) contents[tabId].classList.add('active');
-      // Обновить кнопки
-      tabs.forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.tab === tabId) btn.classList.add('active');
-      });
-    }
-
-    tabs.forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        const tabId = this.dataset.tab;
-        if (tabId) activateTab(tabId);
-      });
     });
+  }
 
-    // ----- Поддержка якорей (при переходе по ссылке с #sec-...) -----
-    // При загрузке проверяем хеш и активируем соответствующую вкладку
-    function handleHash() {
-      const hash = window.location.hash.replace('#', '');
-      if (!hash) return;
-      // Маппинг якорей на табы
-      const map = {
-        'sec-voice': 'tab-voice',
-        'sec-redesign': 'tab-redesign',
-        'sec-instruments': 'tab-instruments',
-        'sec-video': 'tab-video'
-      };
-      const tabId = map[hash];
-      if (tabId && contents[tabId]) {
-        activateTab(tabId);
-        // Прокрутим к началу секции (чтобы не терять контекст)
-        setTimeout(() => {
-          const target = document.getElementById(hash);
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+  tablist.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (chip) activateTab(chip.dataset.tab, false);
+  });
+
+  /* Навигация с клавиатуры (стрелки / Home / End) */
+  tablist.addEventListener('keydown', (e) => {
+    const keys = ['ArrowRight', 'ArrowLeft', 'Home', 'End'];
+    if (!keys.includes(e.key)) return;
+
+    const chips = CATEGORIES.map((c) => document.getElementById('tab-' + c.id));
+    const index = chips.indexOf(document.activeElement);
+    if (index === -1) return;
+
+    e.preventDefault();
+    let next = index;
+
+    if (e.key === 'ArrowRight') next = (index + 1) % chips.length;
+    if (e.key === 'ArrowLeft')  next = (index - 1 + chips.length) % chips.length;
+    if (e.key === 'Home')       next = 0;
+    if (e.key === 'End')        next = chips.length - 1;
+
+    activateTab(chips[next].dataset.tab, true);
+  });
+
+  /* ==========================================================
+     ХЕШ-ССЫЛКИ (#sec-voice и т.п.)
+     ========================================================== */
+  const HASH_MAP = {
+    'sec-voice': 'voice',
+    'sec-redesign': 'redesign',
+    'sec-instruments': 'instruments',
+    'sec-video': 'video'
+  };
+
+  function handleHash() {
+    const hash = window.location.hash.replace('#', '');
+    const tabId = HASH_MAP[hash];
+    if (tabId) {
+      activateTab(tabId, false);
+      const target = document.getElementById(hash);
+      if (target) {
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
       }
     }
+  }
 
-    window.addEventListener('hashchange', handleHash);
-    // При загрузке тоже обработаем
-    document.addEventListener('DOMContentLoaded', handleHash);
+  window.addEventListener('hashchange', handleHash);
 
-    // Дополнительно: если клик по якорю внутри сайта (например, из хедера) - обработаем
-    document.querySelectorAll('a[href^="#sec-"]').forEach(link => {
-      link.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href) {
-          const hash = href.replace('#', '');
-          const map = {
-            'sec-voice': 'tab-voice',
-            'sec-redesign': 'tab-redesign',
-            'sec-instruments': 'tab-instruments',
-            'sec-video': 'tab-video'
-          };
-          const tabId = map[hash];
-          if (tabId && contents[tabId]) {
-            e.preventDefault();
-            activateTab(tabId);
-            // Прокрутим к якорю
-            const target = document.getElementById(hash);
-            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }
-      });
-    });
+  /* ==========================================================
+     ИНИЦИАЛИЗАЦИЯ
+     ========================================================== */
+  document.getElementById('statWorks').textContent = CASES.length;
+  activateTab('all', false);
+  handleHash();
 
-  })();
+  /* Тень у шапки при скролле */
+  const header = document.getElementById('siteHeader');
+  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
 </script>
 </body>
 </html>
