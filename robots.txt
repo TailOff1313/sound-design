@@ -1,0 +1,8 @@
+# Внимание: для project pages на GitHub Pages этот файл нужно положить
+# в корневой репозиторий (https://tailoff1313.github.io/robots.txt),
+# иначе поисковые роботы его не прочитают.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://tailoff1313.github.io/sound-design/sitemap.xml
